@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-        else{}
+        else{
+            throwErrorMessage();
+        }
     }
 
     public void equalsButton(View view){
@@ -139,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         else{
-            Context context = getApplicationContext();
-            Toast errorMessage = Toast.makeText(context, "You didn't enter any numbers", Toast.LENGTH_SHORT);
-            errorMessage.show();
+            throwErrorMessage();
         }
     }
 
@@ -157,5 +157,11 @@ public class MainActivity extends AppCompatActivity {
     public void updateTextView() {
         TextView textView = findViewById(R.id.calcResult);
         textView.setText(numDisplay);
+    }
+
+    public void throwErrorMessage(){
+        Context context = getApplicationContext();
+        Toast errorMessage = Toast.makeText(context, "You didn't enter any numbers", Toast.LENGTH_SHORT);
+        errorMessage.show();
     }
 }
