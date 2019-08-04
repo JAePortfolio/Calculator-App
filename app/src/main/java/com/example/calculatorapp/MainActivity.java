@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 3: // Division
                     operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
-                    result = operandOne / operandTwo;
+                    result = (double) operandOne / (double) operandTwo;
                     numDisplay = Double.toString(result);
                     updateTextView();
                     break;
