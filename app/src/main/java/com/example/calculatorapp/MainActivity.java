@@ -93,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 //updateTextView();
                 break;
         }
-        //Toast myFinalResult = Toast.makeText(this, Double.toString(result), Toast.LENGTH_SHORT);
-        //myFinalResult.show();
     }
 
     public void equalsButton(View view){
@@ -126,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void clearButton(View view){
+        operandOne = 0;
+        operandTwo = 0;
+        result = 0;
+        numDisplay = "";
+        updateTextView();
+    }
 
     public void updateTextView() {
         TextView textView = findViewById(R.id.calcResult);
