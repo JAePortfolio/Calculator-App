@@ -15,8 +15,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    private double operandOne = 0; // Initialize to 0 by default
-    private double operandTwo = 0;
+    private int operandOne = 0; // Initialize to 0 by default
+    private int operandTwo = 0;
+    private int operationID;
     private double result = 0;
     public String numDisplay = "";
 
@@ -68,12 +69,63 @@ public class MainActivity extends AppCompatActivity {
     public void action_arithPress(View view) {
         switch (view.getId()) {
             case R.id.button_arithAddition:
-                result = operandOne + operandTwo;
+                operandOne = Integer.parseInt(numDisplay); // Convert String to Int
+                numDisplay = "";
+                operationID = 0;
+                //updateTextView();
+                break;
+            case R.id.button_arithSubtraction:
+                operandOne = Integer.parseInt(numDisplay); // Convert String to Int
+                numDisplay = "";
+                operationID = 1;
+                //updateTextView();
+                break;
+            case R.id.button_arithMultiplication:
+                operandOne = Integer.parseInt(numDisplay); // Convert String to Int
+                numDisplay = "";
+                operationID = 2;
+                //updateTextView();
+                break;
+            case R.id.button_arithDivision:
+                operandOne = Integer.parseInt(numDisplay); // Convert String to Int
+                numDisplay = "";
+                operationID = 3;
+                //updateTextView();
                 break;
         }
-        Toast myFinalResult = Toast.makeText(this, Double.toString(result), Toast.LENGTH_SHORT);
-        myFinalResult.show();
+        //Toast myFinalResult = Toast.makeText(this, Double.toString(result), Toast.LENGTH_SHORT);
+        //myFinalResult.show();
     }
+
+    public void equalsButton(View view){
+        switch (operationID){
+            case 0: // Addition
+                operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
+                result = operandOne + operandTwo;
+                numDisplay = Double.toString(result);
+                updateTextView();
+                break;
+            case 1: // Subtraction
+                operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
+                result = operandOne - operandTwo;
+                numDisplay = Double.toString(result);
+                updateTextView();
+                break;
+            case 2: // Multiplication
+                operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
+                result = operandOne * operandTwo;
+                numDisplay = Double.toString(result);
+                updateTextView();
+                break;
+            case 3: // Division
+                operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
+                result = operandOne / operandTwo;
+                numDisplay = Double.toString(result);
+                updateTextView();
+                break;
+        }
+    }
+
 
     public void updateTextView() {
         TextView textView = findViewById(R.id.calcResult);
