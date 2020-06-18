@@ -19,92 +19,100 @@ public class MainActivity extends AppCompatActivity {
     private int operandOne = 0; // Initialize to 0 by default
     private int operandTwo = 0;
     private int operationID;
+    private int operandCnt = 1;
     private double result = 0;
     private boolean operandsInputted = false;
     public String numDisplay = "";
 
-    public void digitPress(View view) {
+    public void digitPress(View view) { // This see's which number is pressed and appends it
+        numDisplay = ""; // Empty the string at the start
+        operandsInputted = true; // Inputting numbers
         switch (view.getId()) {
-            case R.id.button_digitZero:
+            case R.id.button_digitZero: // If 0 is pressed, append 0 to the numDisplay
                 numDisplay = numDisplay + "0";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitOne:
                 numDisplay = numDisplay + "1";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitTwo:
                 numDisplay = numDisplay + "2";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitThree:
                 numDisplay = numDisplay + "3";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitFour:
                 numDisplay = numDisplay + "4";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitFive:
                 numDisplay = numDisplay + "5";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitSix:
                 numDisplay = numDisplay + "6";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitSeven:
                 numDisplay = numDisplay + "7";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitEight:
                 numDisplay = numDisplay + "8";
-                operandsInputted = true;
-                updateTextView();
                 break;
             case R.id.button_digitNine:
                 numDisplay = numDisplay + "9";
-                operandsInputted = true;
-                updateTextView();
                 break;
         }
+        updateTextView(); // Update current view
     }
 
     public void action_arithPress(View view) {
         if(operandsInputted == true) {
-            switch (view.getId()) {
-                case R.id.button_arithAddition:
-                    operandOne = Integer.parseInt(numDisplay); // Convert String to Int
-                    numDisplay = "";
-                    operationID = 0;
-                    //updateTextView();
-                    break;
-                case R.id.button_arithSubtraction:
-                    operandOne = Integer.parseInt(numDisplay); // Convert String to Int
-                    numDisplay = "";
-                    operationID = 1;
-                    //updateTextView();
-                    break;
-                case R.id.button_arithMultiplication:
-                    operandOne = Integer.parseInt(numDisplay); // Convert String to Int
-                    numDisplay = "";
-                    operationID = 2;
-                    //updateTextView();
-                    break;
-                case R.id.button_arithDivision:
-                    operandOne = Integer.parseInt(numDisplay); // Convert String to Int
-                    numDisplay = "";
-                    operationID = 3;
-                    //updateTextView();
-                    break;
+            if(operandCnt <= 1){
+                operandOne = Integer.parseInt(numDisplay); // Convert String to Int
+                //numDisplay = "";
+                operandCnt++;
+                switch (view.getId()) {
+                    case R.id.button_arithAddition:
+                        operationID = 0;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithSubtraction:
+                        operationID = 1;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithMultiplication:
+                        operationID = 2;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithDivision:
+                        operationID = 3;
+                        updateTextView();
+                        break;
+                }
+            }
+            else{
+                equalsButton(view);
+                numDisplay = "";
+                operandCnt++;
+                switch (view.getId()) {
+                    case R.id.button_arithAddition:
+                        operandOne += Integer.parseInt(numDisplay);
+                        operationID = 0;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithSubtraction:
+                        operandOne -= Integer.parseInt(numDisplay);
+                        operationID = 1;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithMultiplication:
+                        operandOne *= Integer.parseInt(numDisplay);
+                        operationID = 2;
+                        updateTextView();
+                        break;
+                    case R.id.button_arithDivision:
+                        operandOne /= Integer.parseInt(numDisplay);
+                        operationID = 3;
+                        updateTextView();
+                        break;
+                }
             }
         }
         else{
@@ -149,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
         operandOne = 0;
         operandTwo = 0;
         result = 0;
-        numDisplay = "";
+        numDisplay = "0";
         operandsInputted = false;
+        operandCnt = 1;
         updateTextView();
     }
 
