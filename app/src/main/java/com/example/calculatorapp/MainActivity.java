@@ -63,12 +63,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void action_arithPress(View view) {
-        if(operandsInputted == true) {
-            if(operandCnt <= 1){
+        if (operandsInputted == true) {
+            if (operandCnt <= 1) { // Counting amount of operands
                 operandOne = Integer.parseInt(numDisplay); // Convert String to Int
-                //numDisplay = "";
                 operandCnt++;
-                switch (view.getId()) {
+                switch (view.getId()) { // Assigns operation id based on button pressed
                     case R.id.button_arithAddition:
                         operationID = 0;
                         updateTextView();
@@ -87,73 +86,40 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-            else{
-                equalsButton(view);
-                numDisplay = "";
-                operandCnt++;
-                switch (view.getId()) {
-                    case R.id.button_arithAddition:
-                        operandOne += Integer.parseInt(numDisplay);
-                        operationID = 0;
-                        updateTextView();
-                        break;
-                    case R.id.button_arithSubtraction:
-                        operandOne -= Integer.parseInt(numDisplay);
-                        operationID = 1;
-                        updateTextView();
-                        break;
-                    case R.id.button_arithMultiplication:
-                        operandOne *= Integer.parseInt(numDisplay);
-                        operationID = 2;
-                        updateTextView();
-                        break;
-                    case R.id.button_arithDivision:
-                        operandOne /= Integer.parseInt(numDisplay);
-                        operationID = 3;
-                        updateTextView();
-                        break;
-                }
+            else {
+                throwErrorMessageOperands();
             }
-        }
-        else{
-            throwErrorMessage();
         }
     }
 
     public void equalsButton(View view){
-        if(operandsInputted == true)
-            switch (operationID){
+        if(operandsInputted == true) {
+            operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
+            switch (operationID) {
                 case 0: // Addition
-                    operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
                     result = operandOne + operandTwo;
                     numDisplay = Double.toString(result);
                     updateTextView();
                     break;
                 case 1: // Subtraction
-                    operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
                     result = operandOne - operandTwo;
-                    numDisplay = Double.toString(result);
-                    updateTextView();
                     break;
                 case 2: // Multiplication
-                    operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
                     result = operandOne * operandTwo;
-                    numDisplay = Double.toString(result);
-                    updateTextView();
                     break;
                 case 3: // Division
-                    operandTwo = Integer.parseInt(numDisplay); // Convert String to Int
                     result = (double) operandOne / (double) operandTwo;
-                    numDisplay = Double.toString(result);
-                    updateTextView();
                     break;
             }
+            numDisplay = Double.toString(result);
+            updateTextView();
+        }
         else{
-            throwErrorMessage();
+            throwErrorMessageNoNums();
         }
     }
 
-    public void clearButton(View view){
+    public void clearButton(View view){// What the clear button does
         operandOne = 0;
         operandTwo = 0;
         result = 0;
@@ -163,14 +129,20 @@ public class MainActivity extends AppCompatActivity {
         updateTextView();
     }
 
-    public void updateTextView() {
+    public void updateTextView() { // Updates the text view
         TextView textView = findViewById(R.id.calcResult);
         textView.setText(numDisplay);
     }
 
-    public void throwErrorMessage(){
+    public void throwErrorMessageNoNums(){ // No numbers inputted error
         Context context = getApplicationContext();
         Toast errorMessage = Toast.makeText(context, "You didn't enter any numbers", Toast.LENGTH_SHORT);
+        errorMessage.show();
+    }
+
+    public void throwErrorMessageOperands(){ // Simple calculator, only supports two numbers at a time
+        Context context = getApplicationContext();
+        Toast errorMessage = Toast.makeText(context, "Only two operands at a time please!", Toast.LENGTH_SHORT);
         errorMessage.show();
     }
 }
